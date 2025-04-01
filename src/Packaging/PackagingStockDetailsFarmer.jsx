@@ -6,7 +6,7 @@ const PackagingStockDetailsFarmer = ({ row, _id }) => {
     useEffect(() => {
         const fetchStockDetails = async () => {
           try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-stock-one/${_id}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock-one/${_id}`);
             if (!response.ok) {
               throw new Error('Failed to fetch stock details');
             }

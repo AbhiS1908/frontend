@@ -35,7 +35,7 @@ const EditComponentPLSDKGCash = ({ stock, onClose, onUpdateSuccess }) => {
       console.log('Sending update request with data:', formData); // Log the data being sent
   
       const response = await axios.put(
-        `http://localhost:8000/api/v1/auth/cash-stock/${stock._id}`,
+        `https://ane-production.up.railway.app/api/v1/auth/cash-stock/${stock._id}`,
         formData
       );
   

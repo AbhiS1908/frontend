@@ -35,7 +35,7 @@ export default function DetailLogPerBagFarmer() {
     // Fetch pricePerKgBag first
     const fetchFarmerStockData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-stock-one/${farmerStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock-one/${farmerStockId}`);
             const data = await response.json();
             if (data && data.pricePerKgBag) {
                 setPricePerKgBag(data.pricePerKgBag);
@@ -65,7 +65,7 @@ export default function DetailLogPerBagFarmer() {
     // Fetch saved data only after pricePerKgBag is available
     const fetchSavedData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-single-stock/${farmerStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-single-stock/${farmerStockId}`);
             const savedData = await response.json();
 
             if (savedData && Array.isArray(savedData)) {
@@ -128,13 +128,13 @@ export default function DetailLogPerBagFarmer() {
         try {
             let response;
             if (rowData.isNew) {
-                response = await fetch("http://localhost:8000/api/v1/auth/farmer-single-stock", {
+                response = await fetch("https://ane-production.up.railway.app/api/v1/auth/farmer-single-stock", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
             } else {
-                response = await fetch(`http://localhost:8000/api/v1/auth/farmer-single-stock/${rowData._id}`, {
+                response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-single-stock/${rowData._id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
@@ -161,7 +161,7 @@ export default function DetailLogPerBagFarmer() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-single-stock/${rowData._id}`, {
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-single-stock/${rowData._id}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             });
@@ -178,7 +178,7 @@ export default function DetailLogPerBagFarmer() {
     // Fetch summary data
     const fetchSummary = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-stock/calculate-totals/${farmerStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/calculate-totals/${farmerStockId}`);
             const data = await response.json();
 
             if (data.updatedFarmerStock) {

@@ -19,7 +19,7 @@ const SegregationMasterCash = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/auth/cash-form/${cashId}`);
+        const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-form/${cashId}`);
         const filteredData = response.data?.filter(item => item.unitType === 'bag') || [];
         console.log(filteredData, 'data')
         setData(filteredData);
@@ -54,7 +54,7 @@ const SegregationMasterCash = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/cash-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${item._id}`);
       
       if (response.data.error === "No Cash Stock entries found for this Cash Form ID") {
         alert("No Stock Details Available");

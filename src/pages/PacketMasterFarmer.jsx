@@ -19,7 +19,7 @@ const PacketMasterFarmer = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/auth/farmer-form/${farmerId}`);
+        const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-form/${farmerId}`);
         const filteredData = response.data?.filter(item => item.unitType === 'bag') || [];
         console.log(filteredData, 'data')
         setData(filteredData);
@@ -54,7 +54,7 @@ const PacketMasterFarmer = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/farmer-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${item._id}`);
       
       if (response.data.error === "No farmer Stock entries found for this farmer Form ID") {
         alert("No Stock Details Available");

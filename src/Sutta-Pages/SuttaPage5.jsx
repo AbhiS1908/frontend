@@ -30,9 +30,9 @@ export default function SuttaPage5() {
       try {
         // Fetch data from all three APIs
         const [cashStockResponse, farmerStockResponse, vendorStockResponse] = await Promise.all([
-          fetch('http://localhost:8000/api/v1/auth/cash-stock').then((res) => res.json()),
-          fetch('http://localhost:8000/api/v1/auth/farmer-stock').then((res) => res.json()),
-          fetch('http://localhost:8000/api/v1/auth/vendor-stock').then((res) => res.json()),
+          fetch('https://ane-production.up.railway.app/api/v1/auth/cash-stock').then((res) => res.json()),
+          fetch('https://ane-production.up.railway.app/api/v1/auth/farmer-stock').then((res) => res.json()),
+          fetch('https://ane-production.up.railway.app/api/v1/auth/vendor-stock').then((res) => res.json()),
         ]);
 
         // Map the data from each API to the required format

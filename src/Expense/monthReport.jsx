@@ -20,7 +20,7 @@ export default function MonthlyReport() {
 
   const fetchMonthlyExpenses = async (month, year) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/auth/expense`);
+      const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/expense`);
       const data = await response.json();
       
       const filteredData = data.filter(expense => {
@@ -41,7 +41,7 @@ export default function MonthlyReport() {
 
   const handleUpdate = async () => {
     try {
-      await fetch(`http://localhost:8000/api/v1/auth/expense/${editExpense._id}`, {
+      await fetch(`https://ane-production.up.railway.app/api/v1/auth/expense/${editExpense._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editExpense),
@@ -55,7 +55,7 @@ export default function MonthlyReport() {
 
   const handleDelete = async () => {
     try {
-      await fetch(`http://localhost:8000/api/v1/auth/expense/${deleteId}`, { method: 'DELETE' });
+      await fetch(`https://ane-production.up.railway.app/api/v1/auth/expense/${deleteId}`, { method: 'DELETE' });
       fetchMonthlyExpenses(month, year);
       setShowDeletePopup(false);
     } catch (error) {

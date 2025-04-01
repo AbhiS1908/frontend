@@ -37,7 +37,7 @@ const PurchaseStockKGFarmer = ({farmerFormId}) => {
 
     console.log("Payload:", payload);
     try {
-      const response = await fetch("http://localhost:8000/api/v1/auth/farmer-stock", {
+      const response = await fetch("https://ane-production.up.railway.app/api/v1/auth/farmer-stock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

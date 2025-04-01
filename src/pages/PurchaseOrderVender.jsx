@@ -118,7 +118,7 @@ const PurchaseOrderVendor = () => {
     console.log('Sending Data:', vendorFormData); // Log the data being sent
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/v1/auth/vendor-form`, vendorFormData);
+      const response = await axios.post(`https://ane-production.up.railway.app/api/v1/auth/vendor-form`, vendorFormData);
       console.log('API Response:', response.data);
       const createdVendorFormId = response.data.vendorForm._id;
       navigate(`/master-list-vendor/`);

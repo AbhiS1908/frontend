@@ -12,7 +12,7 @@ const DetailsModalVendor = ({ item, onClose, onSave }) => {
 
   const handleSaveClick = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/v1/auth/vendor-form/${item._id}`, formData);
+      await axios.put(`https://ane-production.up.railway.app/api/v1/auth/vendor-form/${item._id}`, formData);
       alert('Save successful');
       setIsEditing(false);
       onSave(formData);
@@ -29,7 +29,7 @@ const DetailsModalVendor = ({ item, onClose, onSave }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/auth/vendor-form/${item._id}`);
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/vendor-form/${item._id}`);
       alert('Record deleted successfully');
       onClose(); // Close modal after deletion
     } catch (error) {

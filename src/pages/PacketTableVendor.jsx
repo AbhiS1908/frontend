@@ -53,7 +53,7 @@ const PacketTableVendor = () => {
   const fetchStockDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/auth/StockDetailsVendorbyid/${vendorStockId}`
+        `https://ane-production.up.railway.app/api/v1/auth/StockDetailsVendorbyid/${vendorStockId}`
       );
       setStockDetails(response.data);
     } catch (error) {
@@ -77,7 +77,7 @@ const PacketTableVendor = () => {
       };
   
       await axios.put(
-        `http://localhost:8000/api/v1/auth/product-entry/${entryId}`,
+        `https://ane-production.up.railway.app/api/v1/auth/product-entry/${entryId}`,
         payload
       );
   
@@ -95,7 +95,7 @@ const PacketTableVendor = () => {
   const fetchProductEntries = async (vendorStockDetailsId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/auth/get-entry-vendor/${vendorStockDetailsId}`
+        `https://ane-production.up.railway.app/api/v1/auth/get-entry-vendor/${vendorStockDetailsId}`
       );
       setProductEntries((prev) => ({
         ...prev,
@@ -118,7 +118,7 @@ const PacketTableVendor = () => {
         plasticWeight: formData.plasticWeight / 1000,
         vendorStockId,
       };
-      await axios.post("http://localhost:8000/api/v1/auth/createStockDetailsVendor", payload);
+      await axios.post("https://ane-production.up.railway.app/api/v1/auth/createStockDetailsVendor", payload);
       fetchStockDetails();
       setFormData({
         totalMaterialWeight: "",
@@ -153,7 +153,7 @@ const PacketTableVendor = () => {
         plasticWeight: editData.plasticWeight / 1000,
       };
       await axios.put(
-        `http://localhost:8000/api/v1/auth/updateStockDetailsVendor/${editData._id}`,
+        `https://ane-production.up.railway.app/api/v1/auth/updateStockDetailsVendor/${editData._id}`,
         payload
       );
       fetchStockDetails();
@@ -181,7 +181,7 @@ const PacketTableVendor = () => {
         vendorStockDetailsId,
       };
 
-      await axios.post("http://localhost:8000/api/v1/auth/add-entry-vendor", payload);
+      await axios.post("https://ane-production.up.railway.app/api/v1/auth/add-entry-vendor", payload);
 
       // Fetch updated product entries
       fetchProductEntries(vendorStockDetailsId);
@@ -209,7 +209,7 @@ const PacketTableVendor = () => {
   const handleStockOut = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/auth/packetsOutVendor/${id}`
+        `https://ane-production.up.railway.app/api/v1/auth/packetsOutVendor/${id}`
       );
       if (response.status === 200) {
         alert("Stock out successful!");
@@ -229,7 +229,7 @@ const PacketTableVendor = () => {
   const handleCalculation = async (vendorStockDetailsId) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/auth/calculate-vendor/${vendorStockDetailsId}`
+        `https://ane-production.up.railway.app/api/v1/auth/calculate-vendor/${vendorStockDetailsId}`
       );
       if (response.status === 200) {
         alert("Calculated successful!");

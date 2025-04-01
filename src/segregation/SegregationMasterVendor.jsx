@@ -19,7 +19,7 @@ const SegregationMasterVendor = () => {
       if (!vendorId) return; // Prevent API call if vendorId is not available
 
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-form/${vendorId}`);
+        const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-form/${vendorId}`);
         if (response.data && Array.isArray(response.data)) {
           const filterData = response.data.filter((item) => item.unitType === 'bag');
           setData(filterData);
@@ -59,7 +59,7 @@ const SegregationMasterVendor = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/${item._id}`);
 
       if (response.data.error === "No Vendor Stock entries found for this Vendor Form ID") {
         alert("No Stock Details Available");

@@ -9,7 +9,7 @@ const EditComponentMLCash = ({ item, onClose, onUpdateSuccess }) => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/v1/auth/cash/${item._id}`, {
+      const response = await axios.put(`https://ane-production.up.railway.app/api/v1/auth/cash/${item._id}`, {
         name,
         address
       });

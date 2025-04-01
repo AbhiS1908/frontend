@@ -36,7 +36,7 @@ export default function BulkVendorSuta() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/auth/sutta-vendor', {
+      const response = await axios.post('https://ane-production.up.railway.app/api/v1/auth/sutta-vendor', {
         vendorStockId: vendorStockId,
         quantity: row.quantity,
         count: row.count,
@@ -63,7 +63,7 @@ export default function BulkVendorSuta() {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8000/api/v1/auth/sutta-vendor/${id}`, {
+      const response = await axios.put(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor/${id}`, {
         quantity: row.quantity,
         ratePerKg: row.ratePerKg,
         count: row.count,
@@ -85,7 +85,7 @@ export default function BulkVendorSuta() {
 
   const handleDeleteConfirm = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/auth/sutta-vendor/${deleteId}`);
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor/${deleteId}`);
       alert('Data deleted successfully!');
       fetchData();
     } catch (error) {
@@ -99,7 +99,7 @@ export default function BulkVendorSuta() {
 
   const handleStockOut = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/api/v1/auth/sutta-vendor-stock-out/${id}`);
+      await axios.put(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor-stock-out/${id}`);
       alert(`Stock Out successful for row ID: ${id}`);
       setTable2Rows(prevRows =>
         prevRows.map(row => row.id === id ? { ...row, isStockedOut: true } : row)
@@ -114,7 +114,7 @@ export default function BulkVendorSuta() {
   const fetchData = async () => {
     if (!vendorStockId) return;
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/sutta-vendor/${vendorStockId}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor/${vendorStockId}`);
       if (response.data) {
         setTable2Rows(response.data.map((item, index) => ({
           id: item._id || index,

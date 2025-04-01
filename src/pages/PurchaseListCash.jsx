@@ -18,7 +18,7 @@ const PurchaseListCash = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/cash-form');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/cash-form');
         setData(response.data); // Set the fetched data to state
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -58,7 +58,7 @@ const PurchaseListCash = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/cash-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${item._id}`);
       
       if (response.data.error === "No Cash Stock entries found for this Cash Form ID") {
         alert("No Stock Details Available");

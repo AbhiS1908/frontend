@@ -34,7 +34,7 @@ export default function DetailLogPerBag() {
 
     const fetchCashStockData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/cash-stock-one/${cashStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/cash-stock-one/${cashStockId}`);
             const data = await response.json();
             if (data && data.pricePerKgBag) {
                 setPricePerKgBag(data.pricePerKgBag);
@@ -62,7 +62,7 @@ export default function DetailLogPerBag() {
 
     const fetchSavedData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/cash-single-stock/${cashStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/cash-single-stock/${cashStockId}`);
             const savedData = await response.json();
 
             if (savedData && Array.isArray(savedData)) {
@@ -123,13 +123,13 @@ export default function DetailLogPerBag() {
         try {
             let response;
             if (rowData.isNew) {
-                response = await fetch("http://localhost:8000/api/v1/auth/cash-single-stock", {
+                response = await fetch("https://ane-production.up.railway.app/api/v1/auth/cash-single-stock", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
             } else {
-                response = await fetch(`http://localhost:8000/api/v1/auth/cash-single-stock/${rowData._id}`, {
+                response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/cash-single-stock/${rowData._id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
@@ -155,7 +155,7 @@ export default function DetailLogPerBag() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/cash-single-stock/${rowData._id}`, {
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/cash-single-stock/${rowData._id}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             });
@@ -171,7 +171,7 @@ export default function DetailLogPerBag() {
 
     const fetchSummary = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/cash-stock/calculate-totals/${cashStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/calculate-totals/${cashStockId}`);
             const data = await response.json();
 
             if (data.updatedCashStock) {

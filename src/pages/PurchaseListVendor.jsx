@@ -17,7 +17,7 @@ const PurchaseListVendor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/vendor-form');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/vendor-form');
         setData(response.data); // Set the fetched data to state
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -50,7 +50,7 @@ const PurchaseListVendor = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/${item._id}`);
       
       if (response.data.error === "No Vendor Stock entries found for this Vendor Form ID") {
         alert("No Stock Details Available");

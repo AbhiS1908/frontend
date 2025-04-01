@@ -46,7 +46,7 @@ const Purchase = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/cash', {
+      const response = await fetch('https://ane-production.up.railway.app/api/v1/auth/cash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const Purchase = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/farmer', {
+      const response = await fetch('https://ane-production.up.railway.app/api/v1/auth/farmer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const Purchase = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/vendor', {
+      const response = await fetch('https://ane-production.up.railway.app/api/v1/auth/vendor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

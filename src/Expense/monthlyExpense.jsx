@@ -12,7 +12,7 @@ export default function MonthlyExpense() {
 
   const fetchExpenses = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/expense');
+      const response = await fetch('https://ane-production.up.railway.app/api/v1/auth/expense');
       const data = await response.json();
       processExpenses(data);
     } catch (error) {

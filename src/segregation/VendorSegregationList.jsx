@@ -16,7 +16,7 @@ const VendorSegregationList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/vendor-form');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/vendor-form');
         const filterData = response.data.filter((item) => item.unitType === 'bag');
         setData(filterData); // Set the fetched data to state
       } catch (error) {
@@ -50,7 +50,7 @@ const VendorSegregationList = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/${item._id}`);
       
       if (response.data.error === "No Vendor Stock entries found for this Vendor Form ID") {
         alert("No Stock Details Available");

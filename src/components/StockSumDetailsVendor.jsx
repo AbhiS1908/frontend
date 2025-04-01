@@ -26,7 +26,7 @@ const StockSumDetailsVendor = ({ stockData, setStockData }) => {
 
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:8000/api/v1/auth/vendor-stock/${stockId}`);
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/${stockId}`);
       alert("Stock deleted successfully");
 
       // Update UI by removing the deleted item

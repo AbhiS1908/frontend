@@ -39,7 +39,7 @@ export default function PackagingTableNameTBG() {
       // Convert quantity to x/1000 before saving
       const quantityToSave = parseFloat(row.quantity) / 1000;
       
-      const response = await axios.post('http://localhost:8000/api/v1/auth/sutta-vendor-one', {
+      const response = await axios.post('https://ane-production.up.railway.app/api/v1/auth/sutta-vendor-one', {
         vendorStockId: vendorStockId,
         quantity: quantityToSave,
         count: row.count,
@@ -69,7 +69,7 @@ export default function PackagingTableNameTBG() {
       // Convert quantity to x/1000 before updating
       const quantityToUpdate = parseFloat(row.quantity) / 1000;
       
-      const response = await axios.put(`http://localhost:8000/api/v1/auth/sutta-vendor-one/${id}`, {
+      const response = await axios.put(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor-one/${id}`, {
         quantity: quantityToUpdate,
         ratePerKg: row.ratePerKg,
         count: row.count,
@@ -91,7 +91,7 @@ export default function PackagingTableNameTBG() {
 
   const handleDeleteConfirm = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/auth/sutta-vendor-one/${deleteId}`);
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor-one/${deleteId}`);
       alert('Data deleted successfully!');
       fetchData();
     } catch (error) {
@@ -105,7 +105,7 @@ export default function PackagingTableNameTBG() {
 
   const handleStockOut = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/api/v1/auth/sutta-vendor-stock-out-one/${id}`);
+      await axios.put(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor-stock-out-one/${id}`);
       alert(`Stock Out successful for row ID: ${id}`);
       setTable2Rows(prevRows =>
         prevRows.map(row => row.id === id ? { ...row, isStockedOut: true } : row)
@@ -120,7 +120,7 @@ export default function PackagingTableNameTBG() {
   const fetchData = async () => {
     if (!vendorStockId) return;
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/sutta-vendor-one/${vendorStockId}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/sutta-vendor-one/${vendorStockId}`);
       if (response.data) {
         setTable2Rows(response.data.map((item, index) => ({
           id: item._id || index,

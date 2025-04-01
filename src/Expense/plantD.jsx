@@ -11,7 +11,7 @@ export default function PlantD() {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/expenseDo');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/expenseDo');
         const filteredExpenses = response.data.filter(expense => expense.subField === 'Plant and Machinery');
         setExpenses(filteredExpenses.map(exp => ({ ...exp, date: formatDate(exp.date) })));
       } catch (err) {
@@ -42,7 +42,7 @@ export default function PlantD() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/v1/auth/expenseD/${editingExpense._id}`, editingExpense);
+      await axios.put(`https://ane-production.up.railway.app/api/v1/auth/expenseD/${editingExpense._id}`, editingExpense);
       setExpenses(expenses.map(exp => exp._id === editingExpense._id ? { ...editingExpense, date: formatDate(editingExpense.date) } : exp));
       setEditingExpense(null);
     } catch (err) {
@@ -55,7 +55,7 @@ export default function PlantD() {
     if (!confirmDelete) return;
     
     try {
-      await axios.delete(`http://localhost:8000/api/v1/auth/expenseD/${id}`);
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/expenseD/${id}`);
       setExpenses(expenses.filter(exp => exp._id !== id));
     } catch (err) {
       alert('Failed to delete expense');

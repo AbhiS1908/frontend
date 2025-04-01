@@ -54,7 +54,7 @@ const PurchaseStockBAGVendor = ({ vendorFormId }) => {
 
     console.log("Payload:", payload);
     try {
-      const response = await fetch("http://localhost:8000/api/v1/auth/vendor-stock", {
+      const response = await fetch("https://ane-production.up.railway.app/api/v1/auth/vendor-stock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

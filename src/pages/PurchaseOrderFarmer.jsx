@@ -118,7 +118,7 @@ const PurchaseOrderFarmer = () => {
     console.log('Sending Data:', farmerFormData); // Log the data being sent
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/v1/auth/farmer-form`, farmerFormData);
+      const response = await axios.post(`https://ane-production.up.railway.app/api/v1/auth/farmer-form`, farmerFormData);
       console.log('API Response:', response.data);
       const createdFarmerFormId = response.data.farmerForm._id;
       navigate(`/master-list-farmer/`);

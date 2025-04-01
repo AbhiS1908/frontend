@@ -56,7 +56,7 @@ const PacketTableFarmer = () => {
   const fetchStockDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/auth/StockDetailsFarmerbyid/${farmerStockId}`
+        `https://ane-production.up.railway.app/api/v1/auth/StockDetailsFarmerbyid/${farmerStockId}`
       );
       setStockDetails(response.data);
     } catch (error) {
@@ -67,7 +67,7 @@ const PacketTableFarmer = () => {
   const fetchProductEntries = async (farmerStockDetailsId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/auth/get-entry-farmer/${farmerStockDetailsId}`
+        `https://ane-production.up.railway.app/api/v1/auth/get-entry-farmer/${farmerStockDetailsId}`
       );
       setProductEntries((prev) => ({
         ...prev,
@@ -90,7 +90,7 @@ const PacketTableFarmer = () => {
         plasticWeight: formData.plasticWeight / 1000,
         farmerStockId,
       };
-      await axios.post("http://localhost:8000/api/v1/auth/createStockDetailsFarmer", payload);
+      await axios.post("https://ane-production.up.railway.app/api/v1/auth/createStockDetailsFarmer", payload);
       fetchStockDetails();
       setFormData({
         totalMaterialWeight: "",
@@ -125,7 +125,7 @@ const PacketTableFarmer = () => {
         plasticWeight: editData.plasticWeight / 1000,
       };
       await axios.put(
-        `http://localhost:8000/api/v1/auth/updateStockDetailsFarmer/${editData._id}`,
+        `https://ane-production.up.railway.app/api/v1/auth/updateStockDetailsFarmer/${editData._id}`,
         payload
       );
       fetchStockDetails();
@@ -153,7 +153,7 @@ const PacketTableFarmer = () => {
         farmerStockDetailsId,
       };
 
-      await axios.post("http://localhost:8000/api/v1/auth/add-entry-farmer", payload);
+      await axios.post("https://ane-production.up.railway.app/api/v1/auth/add-entry-farmer", payload);
 
       // Fetch updated product entries
       fetchProductEntries(farmerStockDetailsId);
@@ -195,7 +195,7 @@ const PacketTableFarmer = () => {
       };
 
       await axios.put(
-        `http://localhost:8000/api/v1/auth/farmer-product-entry/${entryId}`,
+        `https://ane-production.up.railway.app/api/v1/auth/farmer-product-entry/${entryId}`,
         payload
       );
 
@@ -213,7 +213,7 @@ const PacketTableFarmer = () => {
   const handleStockOut = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/auth/packetsOutFarmer/${id}`
+        `https://ane-production.up.railway.app/api/v1/auth/packetsOutFarmer/${id}`
       );
       if (response.status === 200) {
         alert("Stock out successful!");
@@ -233,7 +233,7 @@ const PacketTableFarmer = () => {
   const handleCalculation = async (farmerStockDetailsId) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/auth/calculate-farmer/${farmerStockDetailsId}`
+        `https://ane-production.up.railway.app/api/v1/auth/calculate-farmer/${farmerStockDetailsId}`
       );
       if (response.status === 200) {
         alert("Calculated successful!");

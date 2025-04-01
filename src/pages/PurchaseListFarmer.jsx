@@ -18,7 +18,7 @@ const PurchaseListFarmer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/farmer-form');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/farmer-form');
         setData(response.data); // Set the fetched data to state
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -51,7 +51,7 @@ const PurchaseListFarmer = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/farmer-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${item._id}`);
       
       if (response.data.error === "No Farmer Stock entries found for this Farmer Form ID") {
         alert("No Stock Details Available");

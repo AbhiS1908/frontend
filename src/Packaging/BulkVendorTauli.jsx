@@ -29,7 +29,7 @@ const BulkVendorTauli = () => {
     const fetchRecords = async () => {
         setIsLoading(true); // Start loading
         try {
-            const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-makhana/vendorStock/${vendorStockId}`);
+            const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-makhana/vendorStock/${vendorStockId}`);
             setRecords(response.data.data);
         } catch (error) {
             console.error('Error fetching records:', error);
@@ -82,11 +82,11 @@ const BulkVendorTauli = () => {
         try {
             if (editRecordId) {
                 // Update existing record
-                await axios.put(`http://localhost:8000/api/v1/auth/vendor-makhana/${editRecordId}`, formData);
+                await axios.put(`https://ane-production.up.railway.app/api/v1/auth/vendor-makhana/${editRecordId}`, formData);
                 setEditRecordId(null);
             } else {
                 // Create new record
-                await axios.post('http://localhost:8000/api/v1/auth/vendor-makhana/calculate', formData);
+                await axios.post('https://ane-production.up.railway.app/api/v1/auth/vendor-makhana/calculate', formData);
             }
             fetchRecords(); // Refresh the records
             setFormData({
@@ -110,7 +110,7 @@ const BulkVendorTauli = () => {
     // Handle delete button click
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/v1/auth/vendor-makhana/${id}`);
+            await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/vendor-makhana/${id}`);
             fetchRecords(); // Refresh the records
         } catch (error) {
             console.error('Error deleting record:', error);
@@ -123,13 +123,13 @@ const BulkVendorTauli = () => {
             let response;
             if (makhanaType === 'Mixing') {
                 // Call the bag-out API for Mixing
-                response = await axios.put('http://localhost:8000/api/v1/auth/vendor-bag-out', {
+                response = await axios.put('https://ane-production.up.railway.app/api/v1/auth/vendor-bag-out', {
                     makhanaId,
                     packetCount,
                 });
             } else {
                 // Call the bag-out-by-type API for other makhana types
-                response = await axios.put('http://localhost:8000/api/v1/auth/vendor-bag-out-by-type', {
+                response = await axios.put('https://ane-production.up.railway.app/api/v1/auth/vendor-bag-out-by-type', {
                     makhanaId,
                 });
             }

@@ -48,7 +48,7 @@ export default function SegregationTableFarmer() {
     );
 const fetchCashStockData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-stock-one/${farmerStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock-one/${farmerStockId}`);
             const data = await response.json();
             
             setWeight(data)
@@ -65,7 +65,7 @@ const fetchCashStockData = async () => {
         if (!farmerStockId) return;  // Prevent API call if no ID
 
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-segregate/${farmerStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-segregate/${farmerStockId}`);
             if (!response.ok) throw new Error("Failed to fetch data");
 
             const savedData = await response.json();
@@ -139,7 +139,7 @@ const fetchCashStockData = async () => {
         const payload = { farmerStockId, ...rowData };
 
         try {
-            await fetch("http://localhost:8000/api/v1/auth/farmer-segregate", {
+            await fetch("https://ane-production.up.railway.app/api/v1/auth/farmer-segregate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -161,7 +161,7 @@ const fetchCashStockData = async () => {
         const payload = { farmerStockId, ...rowData };
 
         try {
-            await fetch(`http://localhost:8000/api/v1/auth/farmer-segregate/${rowData._id}`, {
+            await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-segregate/${rowData._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -182,7 +182,7 @@ const fetchCashStockData = async () => {
         }
 
         try {
-            await fetch(`http://localhost:8000/api/v1/auth/farmer-segregate/${rowData._id}`, {
+            await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-segregate/${rowData._id}`, {
                 method: "DELETE",
             });
             fetchSavedData(); // Refresh the table after deletion
@@ -201,7 +201,7 @@ const fetchCashStockData = async () => {
     const handleGetSummary = async () => {
         try {
             // Step 1: Call the GET API to fetch data
-            const response = await fetch(`http://localhost:8000/api/v1/auth/farmer-stock-one/${farmerStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock-one/${farmerStockId}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch summary data");
             }
@@ -222,7 +222,7 @@ const fetchCashStockData = async () => {
             });
     
             // Step 2: Call the PUT API to update the profit field
-            const updateResponse = await fetch(`http://localhost:8000/api/v1/auth/farmer-stock/${farmerStockId}`, {
+            const updateResponse = await fetch(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${farmerStockId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

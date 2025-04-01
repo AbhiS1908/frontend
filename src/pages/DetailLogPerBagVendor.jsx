@@ -33,7 +33,7 @@ export default function DetailLogPerBagVendor() {
     // Fetch pricePerKgBag first
     const fetchVendorStockData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/vendor-stock-one/${vendorStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock-one/${vendorStockId}`);
             const data = await response.json();
             if (data && data.pricePerKgBag) {
                 setPricePerKgBag(data.pricePerKgBag);
@@ -63,7 +63,7 @@ export default function DetailLogPerBagVendor() {
     // Fetch saved data only after pricePerKgBag is available
     const fetchSavedData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/vendor-single-stock/${vendorStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/vendor-single-stock/${vendorStockId}`);
             const savedData = await response.json();
 
             if (savedData && Array.isArray(savedData)) {
@@ -127,14 +127,14 @@ export default function DetailLogPerBagVendor() {
             let response;
             if (rowData.isNew) {
                 // Create new row
-                response = await fetch("http://localhost:8000/api/v1/auth/vendor-single-stock", {
+                response = await fetch("https://ane-production.up.railway.app/api/v1/auth/vendor-single-stock", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
             } else {
                 // Update existing row
-                response = await fetch(`http://localhost:8000/api/v1/auth/vendor-single-stock/${rowData._id}`, {
+                response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/vendor-single-stock/${rowData._id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
@@ -161,7 +161,7 @@ export default function DetailLogPerBagVendor() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/vendor-single-stock/${rowData._id}`, {
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/vendor-single-stock/${rowData._id}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             });
@@ -178,7 +178,7 @@ export default function DetailLogPerBagVendor() {
 
     const fetchSummary = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/auth/vendor-stock/calculate-totals/${vendorStockId}`);
+            const response = await fetch(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/calculate-totals/${vendorStockId}`);
             const data = await response.json();
     
             if (data.updatedvendorStock) {

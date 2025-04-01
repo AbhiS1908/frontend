@@ -19,7 +19,7 @@ const PacketMasterVendor = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-form/${vendorId}`);
+        const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-form/${vendorId}`);
         const filteredData = response.data?.filter(item => item.unitType === 'bag') || [];
         console.log(filteredData, 'data')
         setData(filteredData);
@@ -54,7 +54,7 @@ const PacketMasterVendor = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/vendor-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/${item._id}`);
       
       if (response.data.error === "No vendor Stock entries found for this vendor Form ID") {
         alert("No Stock Details Available");

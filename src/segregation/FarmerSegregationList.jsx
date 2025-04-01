@@ -17,7 +17,7 @@ const FarmerSegregationList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/farmer-form');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/farmer-form');
         const filterData = response.data.filter((item) => item.unitType === 'bag');
         setData(filterData); // Set the fetched data to state
       } catch (error) {
@@ -51,7 +51,7 @@ const FarmerSegregationList = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/auth/farmer-stock/${item._id}`);
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${item._id}`);
       
       if (response.data.error === "No Farmer Stock entries found for this Farmer Form ID") {
         alert("No Stock Details Available");

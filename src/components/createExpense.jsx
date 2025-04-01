@@ -67,7 +67,7 @@ export default function CreateExpense() {
     setSuccess('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/expense', {
+      const response = await fetch('https://ane-production.up.railway.app/api/v1/auth/expense', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

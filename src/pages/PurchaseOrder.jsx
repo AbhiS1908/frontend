@@ -118,7 +118,7 @@ const PurchaseOrder = () => {
     console.log('Sending Data:', cashFormData); // Log the data being sent
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/v1/auth/cash-form`, cashFormData);
+      const response = await axios.post(`https://ane-production.up.railway.app/api/v1/auth/cash-form`, cashFormData);
       console.log('API Response:', response.data);
       const createdCashFormId = response.data.cashForm._id;
       navigate(`/master-list-cash/`);

@@ -20,7 +20,7 @@ const MasterListFarmer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/auth/farmer');
+        const response = await axios.get('https://ane-production.up.railway.app/api/v1/auth/farmer');
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -44,7 +44,7 @@ const MasterListFarmer = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/auth/farmer/${id}`);
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/farmer/${id}`);
       // Remove the deleted item from the state
       setData(data.filter(item => item._id !== id));
     } catch (error) {
