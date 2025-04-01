@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons from react-icons
-import EditComponentMLCash from '../Edit-delete/editComponentMLCash'; // Import the Edit Component
+import EditComponentMLCash from '../Edit-delete/EditComponentMLCash'; // Import the Edit Component
 
 const MasterListCash = () => {
   const navigate = useNavigate();
