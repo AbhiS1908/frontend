@@ -73,6 +73,7 @@ export default function MonthlyReportD() {
           <th>S.No</th>
               <th>Date</th>
               <th>Particular</th>
+              <th>Sub Field</th>
               <th>Details</th>
               <th>Receipt</th>
               <th>Amount Paid</th>
@@ -87,6 +88,13 @@ export default function MonthlyReportD() {
           {expenses.map((expense, index) => (
             <tr key={index}>
               <td>{expense.sNo}</td>
+              <td>
+                {editExpense && editExpense._id === expense._id ? (
+                  <input type="date" value={editExpense.date.split('T')[0]} onChange={(e) => setEditExpense({ ...editExpense, date: e.target.value })} />
+                ) : (
+                  new Date(expense.date).toLocaleDateString()
+                )}
+              </td>
               <td>
                 {editExpense && editExpense._id === expense._id ? (
                   <input value={editExpense.particular} onChange={(e) => setEditExpense({ ...editExpense, particular: e.target.value })} />
@@ -150,13 +158,7 @@ export default function MonthlyReportD() {
                   expense.remarks
                 )}
               </td>
-              <td>
-                {editExpense && editExpense._id === expense._id ? (
-                  <input type="date" value={editExpense.date.split('T')[0]} onChange={(e) => setEditExpense({ ...editExpense, date: e.target.value })} />
-                ) : (
-                  new Date(expense.date).toLocaleDateString()
-                )}
-              </td>
+              
               <td>
                 {editExpense && editExpense._id === expense._id ? (
                   <button onClick={handleUpdate}>Save</button>
