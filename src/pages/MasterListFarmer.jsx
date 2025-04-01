@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons from react-icons
-import EditComponentMLFarmer from '../Edit-delete/editComponentMLFarmer'; // Import the Edit Component
+import EditComponentMLFarmer from '../Edit-delete/EditComponentMLFarmer'; // Import the Edit Component
 
 const MasterListFarmer = () => {
   const navigate = useNavigate();
