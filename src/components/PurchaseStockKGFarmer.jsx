@@ -12,9 +12,13 @@ const PurchaseStockKGFarmer = ({farmerFormId}) => {
   };
 
   const isSaveButtonDisabled = (row) => {
-    return !row.product || !row.particular && !row.quantity && !row.pricePerKg && !row.gst && !row.amountPaid;
+    return !row.product && !row.particular && !row.quantity && !row.pricePerKg && !row.gst && !row.amountPaid;
   };
   const handleSave = async (row, index) => {
+    if (!row.product) {
+      alert("Please select a product");
+      return; // Exit early without making API call
+    }
     if (isSaveButtonDisabled(row)) {
       return;
     }
