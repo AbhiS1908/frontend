@@ -154,7 +154,7 @@ const PurchaseOrder = () => {
     <Select
       isMulti
       options={productOptions}
-      value={product.map(p => ({ value: p, label: p }))}
+      value={product.map(p => productOptions.find(option => option.value === p))}
       onChange={(selected) => {
         const selectedValues = selected ? selected.map(s => s.value) : [];
         if (selectedValues.includes('Tauli')) {
