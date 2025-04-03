@@ -79,7 +79,7 @@ const MasterListFarmer = () => {
             <th style={styles.th}>Action</th>
             <th style={styles.th}>Purchase List</th>
             <th style={styles.th}>Segregation List</th>
-            <th style={styles.th}>Packeting List</th>
+            <th style={styles.th}>Action Buttons</th>
           </tr>
         </thead>
         <tbody>
