@@ -68,7 +68,7 @@ export default function Furniture() {
   return (
     <Layout>
       <div>
-        <h2>Furniture Expenses</h2>
+        <h2>Furniture & Fixtures Expenses</h2>
         <table border="1" width='150%'>
           <thead>
             <tr>
