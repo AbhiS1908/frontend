@@ -58,6 +58,7 @@ const Purchase = () => {
 
       if (response.ok) {
         console.log('Cash Registered:', data);
+        alert('Master Created Successfully');
         navigate(`/master-list-cash`, { state: { formData, selectedOption } });
       } else {
         throw new Error(data.message || 'Failed to register cash.');
@@ -87,6 +88,7 @@ const Purchase = () => {
 
       if (response.ok) {
         console.log('Farmer Registered:', data);
+        alert('Master Created Successfully');
         navigate(`/master-list-farmer`, { state: { formData, selectedOption } });
       } else {
         throw new Error(data.message || 'Failed to register farmer.');
@@ -116,6 +118,7 @@ const Purchase = () => {
 
       if (response.ok) {
         console.log('Cash Registered:', data);
+        alert('Master Created Successfully');
         navigate(`/master-list-vendor`, { state: { formData, selectedOption } });
       } else {
         throw new Error(data.message || 'Failed to register vendor.');

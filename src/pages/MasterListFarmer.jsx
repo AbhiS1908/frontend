@@ -10,7 +10,8 @@ const MasterListFarmer = () => {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null); // State for selected item
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
+  const [deleteItemId, setDeleteItemId] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const handlePurchaseClick = (id) => {
     navigate(`/purchase-order-farmer/${id}`);
   };
@@ -42,11 +43,19 @@ const MasterListFarmer = () => {
     setIsEditModalOpen(true); // Open the modal
   };
 
-  const handleDeleteClick = async (id) => {
+  const handleDeleteClick = (id) => {
+    setDeleteItemId(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/farmer/${id}`);
-      // Remove the deleted item from the state
-      setData(data.filter(item => item._id !== id));
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/farmer/${deleteItemId}`);
+      setData(data.filter(item => item._id !== deleteItemId));
+      setIsDeleteModalOpen(false);
+      setDeleteItemId(null);
+      alert('Master Deleted Successfully');
+
     } catch (error) {
       console.error('Error deleting item:', error);
     }
@@ -83,8 +92,7 @@ const MasterListFarmer = () => {
               <td style={styles.td}>{item.state}</td>
               <td style={styles.td}>
                 <button style={styles.button} onClick={() => handlePurchaseClick(item._id)}>Purchase</button>
-                <FaEdit style={styles.icon} onClick={() => handleEditClick(item)} />
-                <FaTrash style={styles.icon} onClick={() => handleDeleteClick(item._id)} />
+                
               </td>
               <td style={styles.td}>
                 <button style={styles.button} onClick={() => handleDetailsClick(item._id)}>See Details</button>
@@ -93,7 +101,8 @@ const MasterListFarmer = () => {
                 <button style={styles.button} onClick={() => handleSegregationBtn(item._id)}>Segregation</button>
               </td>
               <td style={styles.td}>
-                <button style={styles.button} onClick={() => handlePacketBtn(item._id)}>Packeting</button>
+              <FaEdit style={styles.icon} onClick={() => handleEditClick(item)} />
+              <FaTrash style={styles.icon} onClick={() => handleDeleteClick(item._id)} />
               </td>
             </tr>
           ))}
@@ -106,6 +115,28 @@ const MasterListFarmer = () => {
           onClose={() => setIsEditModalOpen(false)}
           onUpdateSuccess={handleUpdateSuccess}
         />
+      )}
+      {isDeleteModalOpen && (
+        <div style={styles.modalOverlay}>
+          <div style={styles.modalContent}>
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this item?</p>
+            <div style={styles.modalButtons}>
+              <button 
+                style={styles.cancelButton} 
+                onClick={() => setIsDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button 
+                style={styles.deleteButton} 
+                onClick={handleConfirmDelete}
+              >
+                Yes, Delete
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </Layout>
   );
@@ -139,6 +170,47 @@ const styles = {
     marginLeft: '10px', // Add margin to separate icons
     color: '#2c3e50', // Icon color
   },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '5px',
+    width: '300px',
+    textAlign: 'center',
+  },
+  modalButtons: {
+    marginTop: '20px',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  cancelButton: {
+    padding: '8px 16px',
+    backgroundColor: '#bdc3c7',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  deleteButton: {
+    padding: '8px 16px',
+    backgroundColor: '#e74c3c',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+ 
 };
 
 export default MasterListFarmer;

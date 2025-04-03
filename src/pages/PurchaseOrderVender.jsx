@@ -121,6 +121,7 @@ const PurchaseOrderVendor = () => {
       const response = await axios.post(`https://ane-production.up.railway.app/api/v1/auth/vendor-form`, vendorFormData);
       console.log('API Response:', response.data);
       const createdVendorFormId = response.data.vendorForm._id;
+      alert('Purchase Order Created Successfully');
       navigate(`/master-list-vendor/`);
     } catch (error) {
       console.error('Error submitting form:', error.response?.data || error.message);

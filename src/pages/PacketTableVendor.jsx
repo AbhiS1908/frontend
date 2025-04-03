@@ -388,7 +388,7 @@ const PacketTableVendor = () => {
                               type="text"
                               className="form-control"
                               name="finalCost"
-                              value={editData.finalCost}
+                              value={editData.finalCost?.toFixed(2) || ""}
                               onChange={handleEditChange}
                               readOnly // Make it read-only
                               style={{ marginLeft: "5px", width: "100px" }}
@@ -451,7 +451,7 @@ const PacketTableVendor = () => {
                           <td>₹{stock.rapperCost || "-"}</td>
                           <td>₹{stock.labourCost || "-"}</td>
                           <td>₹{stock.adminExpense || "-"}</td>
-                          <td>₹{stock.finalCost || "-"}</td>
+                          <td>₹{stock.finalCost ? stock.finalCost.toFixed(2) : "-"}</td>
                           <td>{stock.totalMaterialWeight * 1000 || "-"}gm</td>
                           <td>{stock.plasticWeight * 1000 || "-"}gm</td>
                           <td>{stock.packetCount !== null ? stock.packetCount : "-"}</td>

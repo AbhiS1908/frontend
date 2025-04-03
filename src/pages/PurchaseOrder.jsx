@@ -121,6 +121,7 @@ const PurchaseOrder = () => {
       const response = await axios.post(`https://ane-production.up.railway.app/api/v1/auth/cash-form`, cashFormData);
       console.log('API Response:', response.data);
       const createdCashFormId = response.data.cashForm._id;
+      alert('Purchase Order Created Successfully');
       navigate(`/master-list-cash/`);
     } catch (error) {
       console.error('Error submitting form:', error.response?.data || error.message);
