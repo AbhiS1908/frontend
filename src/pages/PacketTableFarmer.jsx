@@ -319,6 +319,7 @@ const PacketTableFarmer = () => {
                   <th>Rapper Cost</th>
                   <th>Labour Cost</th>
                   <th>Admin Expense</th>
+                  <th>Final Cost</th>
                   <th>Total Material Weight</th>
                   <th>Plastic Weight</th>
                   <th>Packet Count</th>
@@ -390,6 +391,20 @@ const PacketTableFarmer = () => {
                             <input
                               type="text"
                               className="form-control"
+                              name="finalCost"
+                              value={editData.finalCost}
+                              onChange={handleEditChange}
+                              readOnly // Make it read-only
+                              style={{ marginLeft: "5px", width: "100px" }}
+                              />
+                              </div>
+                          </td>
+                          <td>
+                          <div style={{ display: "flex", alignItems: "center" }}>
+                          <span>₹</span>
+                            <input
+                              type="text"
+                              className="form-control"
                               name="totalMaterialWeight"
                               value={editData.totalMaterialWeight}
                               onChange={handleEditChange}
@@ -440,6 +455,7 @@ const PacketTableFarmer = () => {
                           <td>₹{stock.rapperCost || "-"}</td>
                           <td>₹{stock.labourCost || "-"}</td>
                           <td>₹{stock.adminExpense || "-"}</td>
+                          <td>₹{stock.finalCost || "-"}</td>
                           <td>{stock.totalMaterialWeight * 1000 || "-"}gm</td>
                           <td>{stock.plasticWeight * 1000 || "-"}gm</td>
                           <td>{stock.packetCount !== null ? stock.packetCount : "-"}</td>

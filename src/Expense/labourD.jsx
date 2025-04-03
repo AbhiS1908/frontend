@@ -67,7 +67,7 @@ export default function LabourD() {
   return (
     <Layout>
       <div>
-        <h2>Staff Welfare Expenses</h2>
+        <h2>Labour and Wages Expenses</h2>
         <table border="1" width='150%'>
           <thead>
             <tr>

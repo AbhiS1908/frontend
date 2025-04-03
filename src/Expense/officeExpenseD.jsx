@@ -68,7 +68,7 @@ export default function OfficeExpenseD() {
   return (
     <Layout>
       <div>
-        <h2>Staff Welfare Expenses</h2>
+        <h2>Office Expense Expenses</h2>
         <table border="1" width='150%'>
           <thead>
             <tr>
