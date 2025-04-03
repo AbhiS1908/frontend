@@ -75,6 +75,7 @@ export default function FurnitureD() {
             <th>S.No</th>
               <th>Date</th>
               <th>Particular</th>
+              <th>Sub Field</th>
               <th>Details</th>
               <th>Receipt</th>
               <th>Amount Paid</th>
@@ -91,6 +92,7 @@ export default function FurnitureD() {
                 <td>{expense.sNo}</td>
                 <td>{expense.date}</td>
                 <td>{expense.particular}</td>
+                <td>{expense.subField}</td>
                 <td>{expense.details}</td>
                 <td>{expense.receipt}</td>
                 <td>{expense.amountPaid}</td>
