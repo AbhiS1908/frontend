@@ -76,6 +76,10 @@ const PurchaseFarmerDetailsByID = () => {
     );
   };
 
+  const handleDelete = (deletedId) => {
+    setData(prevData => prevData.filter(item => item._id !== deletedId));
+  };
+
   return (
     <Layout>
       <h1>Purchase List - Farmer</h1>
@@ -140,7 +144,7 @@ const PurchaseFarmerDetailsByID = () => {
           ))}
         </tbody>
       </table>
-      {selectedItem && <DetailsModalFarmer item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails}/>}
+      {selectedItem && <DetailsModalFarmer item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails} onDelete={handleDelete}/>}
     </Layout>
   );
 };

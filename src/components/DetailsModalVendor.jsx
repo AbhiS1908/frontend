@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 
-const DetailsModalVendor = ({ item, onClose, onSave }) => {
+const DetailsModalVendor = ({ item, onClose, onSave, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(item || {});
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -63,6 +63,7 @@ const DetailsModalVendor = ({ item, onClose, onSave }) => {
     try {
       await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/vendor-form/${item._id}`);
       alert('Record deleted successfully');
+      onDelete(item._id); // Update parent state
       onClose();
     } catch (error) {
       console.error('Error deleting record:', error);

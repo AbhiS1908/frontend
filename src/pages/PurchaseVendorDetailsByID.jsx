@@ -74,6 +74,9 @@ const PurchaseVendorDetailsByID = () => {
       )
     );
   };
+  const handleDelete = (deletedId) => {
+    setData(prevData => prevData.filter(item => item._id !== deletedId));
+  };
 
   return (
     <Layout>
@@ -139,7 +142,7 @@ const PurchaseVendorDetailsByID = () => {
           ))}
         </tbody>
       </table>
-      {selectedItem && <DetailsModalVendor item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails}/>}
+      {selectedItem && <DetailsModalVendor item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails} onDelete={handleDelete}/>}
     </Layout>
   );
 };

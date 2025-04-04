@@ -74,6 +74,10 @@ const PurchaseCashDetailsByID = () => {
     setExpandedUnitType(item.unitType);
   };
 
+  const handleDelete = (deletedId) => {
+    setData(prevData => prevData.filter(item => item._id !== deletedId));
+  };
+
   return (
     <Layout>
       <h1>Purchase List - Cash</h1>
@@ -138,7 +142,7 @@ const PurchaseCashDetailsByID = () => {
           ))}
         </tbody>
       </table>
-      {selectedItem && <DetailsModal item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails}/>}
+      {selectedItem && <DetailsModal item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails} onDelete={handleDelete}/>}
     </Layout>
   );
 };
