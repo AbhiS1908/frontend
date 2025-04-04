@@ -35,6 +35,16 @@ const PurchaseFarmerDetailsByID = () => {
     setSelectedItem(item);
   };
 
+  const fetchStockData = async (farmerFormId) => {
+    try {
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${farmerFormId}`);
+      setStockData(prev => ({ ...prev, [farmerFormId]: response.data }));
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      setStockData(prev => ({ ...prev, [farmerFormId]: [] }));
+    }
+  };
+
   const handleCloseModal = () => {
     setSelectedItem(null);
   };
@@ -53,22 +63,9 @@ const PurchaseFarmerDetailsByID = () => {
       setExpandedUnitType(null);
       return;
     }
-    try {
-      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${item._id}`);
-      
-      if (response.data.error === "No farmer Stock entries found for this farmer Form ID") {
-        alert("No Stock Details Available");
-        return;
-      }
-      
-      console.log("Farmer Stock Sum");
-      setStockData((prev) => ({ ...prev, [item._id]: response.data }));
-      setExpandedStock(item._id);
-      setExpandedUnitType(item.unitType);
-    } catch (error) {
-      console.error('Error fetching stock data:', error);
-      alert("Stock Details Unavailable. Add Stock !");
-    }
+    await fetchStockData(item._id);
+    setExpandedStock(item._id);
+    setExpandedUnitType(item.unitType);
   };
 
   const handleSaveDetails = (updatedItem) => {
@@ -123,10 +120,18 @@ const PurchaseFarmerDetailsByID = () => {
               {expandedStock === item._id && (
                 <tr>
                   <td colSpan="7">
-                    {expandedUnitType === 'bag' ? (
-                      <StockSumDetailsFarmer stockData={stockData[item._id]} />
+                  {expandedUnitType === 'bag' ? (
+                      <StockSumDetailsFarmer 
+                        stockData={stockData[item._id]} 
+                        farmerFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : expandedUnitType === 'kg' ? (
-                      <StockSumDetailsFarmerKG stockData={stockData[item._id]} />
+                      <StockSumDetailsFarmerKG 
+                        stockData={stockData[item._id]}
+                        farmerFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : null}
                   </td>
                 </tr>

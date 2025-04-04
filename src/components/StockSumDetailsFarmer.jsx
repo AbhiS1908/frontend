@@ -4,7 +4,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons from react-ico
 import axios from 'axios';
 import EditComponentPLSDFarmer from '../Edit-delete/EditComponentPLSDFarmer';
 
-const StockSumDetailsFarmer = ({ stockData, setStockData }) => {
+const StockSumDetailsFarmer = ({ stockData,  farmerFormId, fetchStockData }) => {
     const [loading, setLoading] = useState(false);
     const [editStock, setEditStock] = useState(null);
     const navigate = useNavigate();
@@ -26,51 +26,24 @@ const StockSumDetailsFarmer = ({ stockData, setStockData }) => {
 
     setLoading(true);
     try {
-        await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${stockId}`);
-        alert("Stock deleted successfully");
-
-        // Update UI by removing the deleted item
-        if (setStockData){
-          setStockData(prevStockData => prevStockData.filter(stock => stock._id !== stockId));
-        }
+      await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${stockId}`);
+      alert("Stock deleted successfully");
+      await fetchStockData(farmerFormId); // Refresh data after delete
     } catch (error) {
-        console.error("Error deleting stock:", error);
-        alert("Failed to delete stock");
+      console.error("Error deleting stock:", error);
+      alert("Failed to delete stock");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
     const handleEditClick = (stock) => {
     setEditStock(stock); // Set the stock to be edited
   };
 
-  const handleUpdateStock = (updatedStock) => {
-    try {
-      console.log('Updating stock data with:', updatedStock); // Log the updated data
-
-      // Ensure updatedStock has a valid _id
-      if (!updatedStock._id) {
-        throw new Error('Successfully updated stock data ');
-      }
-
-      // Log the current state before updating
-      console.log('Current stockData:', stockData);
-
-      // Update the state
-      setStockData((prevStockData) => {
-        const updatedData = prevStockData.map((stock) =>
-          stock._id === updatedStock._id ? updatedStock : stock
-        );
-        console.log('Updated stockData:', updatedData); // Log the updated state
-        return updatedData;
-      });
-
-      console.log('Parent state updated successfully'); // Log success
-      setEditStock(null); // Close the modal
-    } catch (error) {
-      console.error('Error updating parent state:', error); // Log the error
-      alert('' + error.message);
-    }
+  const handleUpdateStock = async () => {
+    await fetchStockData(farmerFormId); // Refresh data after update
+    setEditStock(null);
+    alert("Stock Updated successfully");
   };
 
     return (

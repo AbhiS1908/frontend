@@ -32,6 +32,16 @@ const PurchaseListFarmer = () => {
     setSelectedItem(item);
   };
 
+  const fetchStockData = async (farmerFormId) => {
+    try {
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${farmerFormId}`);
+      setStockData(prev => ({ ...prev, [farmerFormId]: response.data }));
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      setStockData(prev => ({ ...prev, [farmerFormId]: [] }));
+    }
+  };
+
   const handleCloseModal = () => {
     setSelectedItem(null);
   };
@@ -44,27 +54,15 @@ const PurchaseListFarmer = () => {
     navigate(`/purchase-order-quantity-farmer?${queryParams}`);
   };
 
-   const toggleStockDetails = async (item) => {
+  const toggleStockDetails = async (item) => {
     if (expandedStock === item._id) {
       setExpandedStock(null);
       setExpandedUnitType(null);
       return;
     }
-    try {
-      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${item._id}`);
-      
-      if (response.data.error === "No Farmer Stock entries found for this Farmer Form ID") {
-        alert("No Stock Details Available");
-        return;
-      }
-      
-      setStockData((prev) => ({ ...prev, [item._id]: response.data }));
-      setExpandedStock(item._id);
-      setExpandedUnitType(item.unitType);
-    } catch (error) {
-      console.error('Error fetching stock data:', error);
-      alert("Stock Details Unavailable. Add Stock !");
-    }
+    await fetchStockData(item._id);
+    setExpandedStock(item._id);
+    setExpandedUnitType(item.unitType);
   };
 
   const handleSaveDetails = (updatedItem) => {
@@ -118,10 +116,18 @@ const PurchaseListFarmer = () => {
               {expandedStock === item._id && (
                 <tr>
                   <td colSpan="7">
-                    {expandedUnitType === 'bag' ? (
-                      <StockSumDetailsFarmer stockData={stockData[item._id]} />
+                  {expandedUnitType === 'bag' ? (
+                      <StockSumDetailsFarmer 
+                        stockData={stockData[item._id]} 
+                        farmerFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : expandedUnitType === 'kg' ? (
-                      <StockSumDetailsFarmerKG stockData={stockData[item._id]} />
+                      <StockSumDetailsFarmerKG 
+                        stockData={stockData[item._id]}
+                        farmerFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : null}
                   </td>
                 </tr>

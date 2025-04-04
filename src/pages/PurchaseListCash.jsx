@@ -32,6 +32,16 @@ const PurchaseListCash = () => {
     setSelectedItem(item);
   };
 
+  const fetchStockData = async (cashFormId) => {
+    try {
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${cashFormId}`);
+      setStockData(prev => ({ ...prev, [cashFormId]: response.data }));
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      setStockData(prev => ({ ...prev, [cashFormId]: [] }));
+    }
+  };
+
   const handleCloseModal = () => {
     setSelectedItem(null);
   };
@@ -57,21 +67,9 @@ const PurchaseListCash = () => {
       setExpandedUnitType(null);
       return;
     }
-    try {
-      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${item._id}`);
-      
-      if (response.data.error === "No Cash Stock entries found for this Cash Form ID") {
-        alert("No Stock Details Available");
-        return;
-      }
-      
-      setStockData((prev) => ({ ...prev, [item._id]: response.data }));
-      setExpandedStock(item._id);
-      setExpandedUnitType(item.unitType);
-    } catch (error) {
-      console.error('Error fetching stock data:', error);
-      alert("Stock Details Unavailable. Add Stock !");
-    }
+    await fetchStockData(item._id);
+    setExpandedStock(item._id);
+    setExpandedUnitType(item.unitType);
   };
 
 
@@ -119,10 +117,18 @@ const PurchaseListCash = () => {
               {expandedStock === item._id && (
                 <tr>
                   <td colSpan="7">
-                    {expandedUnitType === 'bag' ? (
-                      <StockSumDetails stockData={stockData[item._id]} />
+                  {expandedUnitType === 'bag' ? (
+                      <StockSumDetails 
+                        stockData={stockData[item._id]} 
+                        cashFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : expandedUnitType === 'kg' ? (
-                      <StockSumDetailsKG stockData={stockData[item._id]} />
+                      <StockSumDetailsKG 
+                        stockData={stockData[item._id]}
+                        cashFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : null}
                   </td>
                 </tr>

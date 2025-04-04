@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons from react-icons
 import axios from 'axios';
 import EditComponentPLSDVendor from '../Edit-delete/EditComponentPLSDVendor';
-const StockSumDetailsVendor = ({ stockData, setStockData }) => {
+const StockSumDetailsVendor = ({ stockData, vendorFormId, fetchStockData }) => {
   console.log(stockData)
   const [loading, setLoading] = useState(false);
   const [editStock, setEditStock] = useState(null);
@@ -28,11 +28,7 @@ const StockSumDetailsVendor = ({ stockData, setStockData }) => {
     try {
       await axios.delete(`https://ane-production.up.railway.app/api/v1/auth/vendor-stock/${stockId}`);
       alert("Stock deleted successfully");
-
-      // Update UI by removing the deleted item
-      if (setStockData) {
-        setStockData(prevStockData => prevStockData.filter(stock => stock._id !== stockId));
-      }
+      await fetchStockData(vendorFormId); // Refresh data after delete
     } catch (error) {
       console.error("Error deleting stock:", error);
       alert("Failed to delete stock");
@@ -44,33 +40,10 @@ const StockSumDetailsVendor = ({ stockData, setStockData }) => {
     setEditStock(stock); // Set the stock to be edited
   };
 
-  const handleUpdateStock = (updatedStock) => {
-    try {
-      console.log('Updating stock data with:', updatedStock); // Log the updated data
-
-      // Ensure updatedStock has a valid _id
-      if (!updatedStock._id) {
-        throw new Error('Successfully updated stock data ');
-      }
-
-      // Log the current state before updating
-      console.log('Current stockData:', stockData);
-
-      // Update the state
-      setStockData((prevStockData) => {
-        const updatedData = prevStockData.map((stock) =>
-          stock._id === updatedStock._id ? updatedStock : stock
-        );
-        console.log('Updated stockData:', updatedData); // Log the updated state
-        return updatedData;
-      });
-
-      console.log('Parent state updated successfully'); // Log success
-      setEditStock(null); // Close the modal
-    } catch (error) {
-      console.error('Error updating parent state:', error); // Log the error
-      alert('' + error.message);
-    }
+  const handleUpdateStock = async () => {
+    await fetchStockData(vendorFormId); // Refresh data after update
+    setEditStock(null);
+    alert("Stock Updated successfully");
   };
   return (
     <div style={styles.container}>
@@ -96,7 +69,7 @@ const StockSumDetailsVendor = ({ stockData, setStockData }) => {
             {stockData.map((stock, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{stock.product || "N/A"}</td>
+                <td>{stock.particular || "N/A"}</td>
                 <td>{stock.quantity || "N/A"}</td>
                 <td>₹{stock.rate || "N/A"}</td>
                 <td>₹{stock.amount ? stock.amount.toFixed(2) : "N/A"}</td>

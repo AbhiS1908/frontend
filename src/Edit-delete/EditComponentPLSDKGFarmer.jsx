@@ -32,42 +32,16 @@ const EditComponentPLSDKGFarmer = ({ stock, onClose, onUpdateSuccess }) => {
 
   const handleSave = async () => {
     try {
-      console.log('Sending update request with data:', formData); // Log the data being sent
-  
-      const response = await axios.put(
+      await axios.put(
         `https://ane-production.up.railway.app/api/v1/auth/farmer-stock/${stock._id}`,
         formData
       );
-  
-      console.log('API Response:', response); // Log the full response
-  
-      // Ensure the response has a valid status code (2xx)
-      if (response.status >= 200 && response.status < 300) {
-        console.log('Update successful:', response.data); // Log success
-        onUpdateSuccess(response.data); // Update parent state
-        onClose(); // Close the modal
-      } else {
-        console.error('Unexpected response status:', response.status); // Log unexpected status
-        throw new Error(`Unexpected response status: ${response.status}`);
-      }
+      onUpdateSuccess(); // Trigger parent refresh
     } catch (error) {
-      console.error('Error updating stock:', error); // Log the full error
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        console.error('Server responded with:', error.response.data); // Log server response
-        alert(`Failed to update stock: ${error.response.data.message || 'Unknown error'}`);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error('No response received:', error.request);
-        alert('Failed to update stock: No response from server');
-      } else {
-        // Something happened in setting up the request
-        console.error('Request setup error:', error.message);
-        alert(`Failed to update stock: ${error.message}`);
-      }
+      console.error('Error updating stock:', error);
+      alert('Failed to update stock');
     }
   };
-  
 
   return (
     <div style={modalStyles.overlay}>

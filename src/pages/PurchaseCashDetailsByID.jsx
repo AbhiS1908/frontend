@@ -21,17 +21,26 @@ const PurchaseCashDetailsByID = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-form/${cashId}`);
-        setData(response.data || []); // Set the fetched data to state
+        setData(response.data || []);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
-  }, []);
+  }, [cashId]);
 
   const handleSeeDetailsClick = (item) => {
     setSelectedItem(item);
+  };
+
+  const fetchStockData = async (cashFormId) => {
+    try {
+      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${cashFormId}`);
+      setStockData(prev => ({ ...prev, [cashFormId]: response.data }));
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      setStockData(prev => ({ ...prev, [cashFormId]: [] }));
+    }
   };
 
   const handleCloseModal = () => {
@@ -60,21 +69,9 @@ const PurchaseCashDetailsByID = () => {
       setExpandedUnitType(null);
       return;
     }
-    try {
-      const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${item._id}`);
-
-      if (response.data.error === "No Cash Stock entries found for this Cash Form ID") {
-        alert("No Stock Details Available");
-        return;
-      }
-
-      setStockData((prev) => ({ ...prev, [item._id]: response.data }));
-      setExpandedStock(item._id);
-      setExpandedUnitType(item.unitType);
-    } catch (error) {
-      console.error('Error fetching stock data:', error);
-      alert("Stock Details Unavailable. Add Stock !");
-    }
+    await fetchStockData(item._id);
+    setExpandedStock(item._id);
+    setExpandedUnitType(item.unitType);
   };
 
   return (
@@ -121,10 +118,18 @@ const PurchaseCashDetailsByID = () => {
               {expandedStock === item._id && (
                 <tr>
                   <td colSpan="7">
-                    {expandedUnitType === 'bag' ? (
-                      <StockSumDetails stockData={stockData[item._id]} />
+                  {expandedUnitType === 'bag' ? (
+                      <StockSumDetails 
+                        stockData={stockData[item._id]} 
+                        cashFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : expandedUnitType === 'kg' ? (
-                      <StockSumDetailsKG stockData={stockData[item._id]} />
+                      <StockSumDetailsKG 
+                        stockData={stockData[item._id]}
+                        cashFormId={item._id}
+                        fetchStockData={fetchStockData}
+                      />
                     ) : null}
                   </td>
                 </tr>
