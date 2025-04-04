@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
+import * as XLSX from 'xlsx';
 
 export default function MonthlyReportD() {
   const [expenses, setExpenses] = useState([]);
@@ -63,10 +64,35 @@ export default function MonthlyReportD() {
     }
   };
 
+const handleDownloadExcel = () => {
+    // Map expenses to match Excel columns
+    const dataForExcel = expenses.map(expense => ({
+      "S.No": expense.sNo,
+      "Date": new Date(expense.date).toLocaleDateString(),
+      "Particular": expense.particular,
+      "Sub Field": expense.subField,
+      "Details": expense.details,
+      "Receipt": expense.receipt,
+      "Amount Paid": expense.amountPaid,
+      "Balance": expense.balance,
+      "Paid To": expense.paidTo,
+      "Approved By": expense.approvedBy,
+      "Remarks": expense.remarks
+    }));
+  
+    // Create worksheet and workbook
+    const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Monthly Report");
+    
+    // Save the file
+    XLSX.writeFile(workbook, `MonthlyReport_${month}_${year}.xlsx`);
+  };
   return (
     <Layout>
     <div>
       <h2>Monthly Report - {month} {year}</h2>
+      <button onClick={handleDownloadExcel}>Download Excel</button>
       <table border="1">
         <thead>
           <tr>
