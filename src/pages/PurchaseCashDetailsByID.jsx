@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DetailsModal from '../components/DetailsModal';
-import axios from 'axios'; 
+import axios from 'axios';
 import StockSumDetails from '../components/StockSumDetails';
 import StockSumDetailsKG from '../components/StockSumDetailsKG';
 
 
 const PurchaseCashDetailsByID = () => {
-  const {cashId} = useParams();
+  const { cashId } = useParams();
   const [selectedItem, setSelectedItem] = useState(null);
   const [data, setData] = useState([]);
-  const [expandedStock, setExpandedStock] = useState(null); 
+  const [expandedStock, setExpandedStock] = useState(null);
   const navigate = useNavigate();
-  const [stockData, setStockData] = useState({}); 
+  const [stockData, setStockData] = useState({});
   const [expandedUnitType, setExpandedUnitType] = useState(null);
 
 
@@ -46,6 +46,14 @@ const PurchaseCashDetailsByID = () => {
     navigate(`/purchase-order-quantity?${queryParams}`);
   };
 
+  const handleSaveDetails = (updatedItem) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item._id === updatedItem._id ? updatedItem : item
+      )
+    );
+  };
+
   const toggleStockDetails = async (item) => {
     if (expandedStock === item._id) {
       setExpandedStock(null);
@@ -54,12 +62,12 @@ const PurchaseCashDetailsByID = () => {
     }
     try {
       const response = await axios.get(`https://ane-production.up.railway.app/api/v1/auth/cash-stock/${item._id}`);
-      
+
       if (response.data.error === "No Cash Stock entries found for this Cash Form ID") {
         alert("No Stock Details Available");
         return;
       }
-      
+
       setStockData((prev) => ({ ...prev, [item._id]: response.data }));
       setExpandedStock(item._id);
       setExpandedUnitType(item.unitType);
@@ -85,17 +93,19 @@ const PurchaseCashDetailsByID = () => {
           </tr>
         </thead>
         <tbody>
-        {data.map((item, index) => (
+          {data.map((item, index) => (
             <React.Fragment key={index}>
               <tr>
                 <td style={styles.td}>{index + 1}</td>
                 <td style={styles.td}>{item.cashName}</td>
                 <td style={styles.td}>{item.sellerAddress}</td>
-                <td style={styles.td}>{item.product === 'Others' ? 'Hand Picked' : item.product}</td>
+                <td style={styles.td}>{Array.isArray(item.product)
+                  ? item.product.map(prod => prod === 'Others' ? 'Hand Picked' : prod).join(', ')
+                  : item.product.split(',').map(prod => prod.trim() === 'Others' ? 'Hand Picked' : prod.trim()).join(', ')}</td>
                 <td style={styles.td}>
                   {item.unitType}
-                  <span 
-                    style={styles.arrow} 
+                  <span
+                    style={styles.arrow}
                     onClick={() => toggleStockDetails(item)}
                   >
                     ⬇️
@@ -123,7 +133,7 @@ const PurchaseCashDetailsByID = () => {
           ))}
         </tbody>
       </table>
-      {selectedItem && <DetailsModal item={selectedItem} onClose={handleCloseModal} />}
+      {selectedItem && <DetailsModal item={selectedItem} onClose={handleCloseModal} onSave={handleSaveDetails}/>}
     </Layout>
   );
 };

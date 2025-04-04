@@ -95,7 +95,9 @@ const PurchaseListVendor = () => {
                 <td style={styles.td}>{index + 1}</td>
                 <td style={styles.td}>{item.vendorName}</td>
                 <td style={styles.td}>{item.sellerAddress}</td>
-                <td style={styles.td}>{item.product === 'Others' ? 'Hand Picked' : item.product}</td>
+                <td style={styles.td}>{Array.isArray(item.product)
+                  ? item.product.map(prod => prod === 'Others' ? 'Hand Picked' : prod).join(', ')
+                  : item.product.split(',').map(prod => prod.trim() === 'Others' ? 'Hand Picked' : prod.trim()).join(', ')}</td>
                 <td style={styles.td}>
                   {item.unitType}
                   <span 
