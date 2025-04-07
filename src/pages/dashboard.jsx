@@ -47,6 +47,14 @@ const Dashboard = () => {
     profit: data.reduce((sum, item) => sum + (item.profit || 0), 0),
     transportationCost: data.reduce((sum, item) => sum + (item.transportationCost || 0), 0)
   });
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+  
 
   const cardStyle = {
     backgroundColor: '#ffffff',
@@ -110,7 +118,7 @@ const Dashboard = () => {
     )}
   >
     <CartesianGrid strokeDasharray="3 3" />
-    <XAxis dataKey="eDate" />
+    <XAxis dataKey="eDate" tickFormatter={formatDate} />
     <YAxis />
     <Tooltip />
     <Legend />
@@ -149,7 +157,7 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height="90%">
               <LineChart data={stocks.vendor}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="eDate" />
+                <XAxis dataKey="eDate" tickFormatter={formatDate} />
                 <YAxis />
                 <Tooltip />
                 <Legend />
@@ -169,7 +177,7 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height="90%">
               <LineChart data={stocks.cash}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="eDate" />
+                <XAxis dataKey="eDate" tickFormatter={formatDate} />
                 <YAxis />
                 <Tooltip />
                 <Legend />
@@ -187,7 +195,7 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height="90%">
               <LineChart data={stocks.farmer}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="eDate" />
+                <XAxis dataKey="eDate" tickFormatter={formatDate} />
                 <YAxis />
                 <Tooltip />
                 <Legend />
