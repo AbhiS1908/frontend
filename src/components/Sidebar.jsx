@@ -11,6 +11,11 @@ const Sidebar = () => {
 
   const menuConfig = [
     {
+      label: 'Dashboard',
+      path: '/dashboard',
+      roles: ['admin'],
+    },
+    {
       label: 'Create Master',
       path: '/xyz',
       roles: ['admin', 'purchase'],

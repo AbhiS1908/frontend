@@ -82,6 +82,7 @@ import FuelD from './Expense/fuelD';
 import LabourD from './Expense/labourD';
 import TransportD from './Expense/transportD';
 import ExpenseD from './pages/expenseD';
+import Dashboard from './pages/dashboard';
 
 const App = () => {
   return (
@@ -169,6 +170,7 @@ const App = () => {
       <Route path='/transportD' element={<TransportD></TransportD>}></Route>
       <Route path='/labourD' element={<LabourD></LabourD>}></Route>
       <Route path='/fuelD' element={<FuelD></FuelD>}></Route>
+      <Route path='/dashboard' element={<Dashboard></Dashboard>}></Route>
 
       </Routes>
   );
