@@ -122,7 +122,7 @@ const Dashboard = () => {
           </div>
 
           {/* Profit Distribution */}
-          <div style={chartContainerStyle}>
+          {/* <div style={chartContainerStyle}>
             <h3 style={{ color: '#34495e', marginBottom: '20px' }}>Profit Distribution</h3>
             <ResponsiveContainer width="100%" height="90%">
               <PieChart>
@@ -143,6 +143,24 @@ const Dashboard = () => {
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
+          </div> */}
+          <div style={chartContainerStyle}>
+            <h3 style={{ color: '#34495e', marginBottom: '20px' }}>Value Trend Analysis</h3>
+            <ResponsiveContainer width="100%" height="90%">
+              <LineChart data={stocks.vendor}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="eDate" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="totalValue"
+                  stroke="#e74c3c"
+                  name="Vendor Stock Value"
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
 
           {/* Trend Analysis */}
@@ -160,6 +178,24 @@ const Dashboard = () => {
                   dataKey="totalValue"
                   stroke="#e74c3c"
                   name="Cash Stock Value"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div style={chartContainerStyle}>
+            <h3 style={{ color: '#34495e', marginBottom: '20px' }}>Value Trend Analysis</h3>
+            <ResponsiveContainer width="100%" height="90%">
+              <LineChart data={stocks.farmer}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="eDate" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="totalValue"
+                  stroke="#e74c3c"
+                  name="Farmer Stock Value"
                 />
               </LineChart>
             </ResponsiveContainer>
