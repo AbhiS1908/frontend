@@ -34,7 +34,7 @@ export default function Login() {
 
       // Define role-based navigation
       const roleRoutes = {
-        admin: '/xyz',
+        admin: '/dashboard',
         purchase: '/master-list-cash',
         segregation: '/cash-segregation-list',
         packaging: '/packaging',
