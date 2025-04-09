@@ -322,12 +322,14 @@ export default function DetailLogPerBag() {
                 </table>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", maxWidth: "100%" }}>
-                    <p><strong>Actual Bag Weight:</strong> {summary.totalBagWeight}</p>
-                    <p><strong>Total Purchase Rate:</strong> {summary.totalPurchaseRate}</p>
-                    <p><strong>Total Bag Weight:</strong> {weight}</p>
-                    <p><strong>Total Value:</strong> {summary.totalValue}</p>
-                    <p><strong>Actual Value:</strong> {summary.actualValue}</p>
-                    <p style={{ gridColumn: "span 2", color: summary.valueDiff > 0 ? "red" : "green" }}><strong>Diff. Value:</strong> {summary.valueDiff}</p>
+                    <p><strong>Actual Bag Weight:</strong> {parseFloat(summary.totalBagWeight)?.toFixed(2)}</p>
+                    <p><strong>Total Purchase Rate:</strong> {parseFloat(summary.totalPurchaseRate)?.toFixed(2)}</p>
+                    <p><strong>Total Bag Weight:</strong> {parseFloat(weight)?.toFixed(2)}</p>
+                    <p><strong>Total Value:</strong> {parseFloat(summary.totalValue)?.toFixed(2)}</p>
+                    <p><strong>Actual Value:</strong> {parseFloat(summary.actualValue)?.toFixed(2)}</p>
+                    <p style={{ gridColumn: "span 2", color: parseFloat(summary.valueDiff) > 0 ? "red" : "green" }}>
+                        <strong>Diff. Value:</strong> {parseFloat(summary.valueDiff)?.toFixed(2)}
+                    </p>
                 </div>
                 <button onClick={fetchSummary} style={{ marginTop: "10px", background: 'aqua', border: '2px solid black' }}>Get Summary</button>
             </div>
